@@ -1,5 +1,6 @@
 package Server;
- public class Nodo<T> {
+
+public class Nodo<T> {
 	
 	T data;
 	Nodo<T> next;

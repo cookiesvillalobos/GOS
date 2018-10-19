@@ -1,5 +1,6 @@
 package Server;
- public class List<T> {
+
+public class List<T> {
 	
 	Nodo<T> first = null;
 	
@@ -16,30 +17,32 @@ package Server;
 			}
 		}
 	
- 	public T getData(int num) {
+
+	public T getData(int num) {
 		if (first == null) {
 			return null;
-		}else if (num == 1) {
-			return first.data;
 		}
 		Nodo<T> temp = first;
 		try {
-			for(int i=0; i >= num; i++) {
+			for(int i=0; i <= (num-1); i++) {
 				temp = temp.next;
 			}
 			return temp.data;
 			
 		}catch(Exception ex) {
-			throw new Error("La lista no tiene esa cantidad de datos");	
+			return null;	
 		}
 	}
- 	public void deleteData(int num) {
+		
+
+
+	public void deleteData(int num) {
 		if (first == null) {
 			return;
 		}
 		Nodo<T> temp = first;
 		try {
-			for(int i=0; i >= (num-1); i++) {
+			for(int i=0; i <= (num-2); i++) {
 				temp = temp.next;
 			}
 			if (temp.next != null) {
@@ -59,12 +62,30 @@ package Server;
 	
 	public int length() {
 		Nodo<T> temp = first;
-		int i = 0;
+		int i = 1;
 		while(temp.next != null) {
 			temp = temp.next;
 			i++;
 		}
 		return i;
+	}
+
+
+	public void changeData(int pos, T data) {
+		if (first == null) {
+			return;
+		}
+		Nodo<T> temp = first;
+		try {
+			for(int i=0; i <= (pos-1); i++) {
+				temp = temp.next;
+			}
+			temp.data = data;
+			
+		}catch(Exception ex) {
+			return;	
+		}
+		
 	}
 		
 }
