@@ -1,18 +1,18 @@
 package Server;
 
-public class ArbolBinario<T> {
+public class ArbolBinario {
 	
-	NodoAB<T> raiz;
+	NodoAB raiz;
 	
-	public ArbolBinario(NodoAB<T> raiz) {
+	public ArbolBinario(NodoAB raiz) {
 		this.raiz = raiz;
 	}
 	
-	public void addNodo( NodoAB<T> nodo, NodoAB<T> raiz ) {
+	public void addNodo( NodoAB nodo, NodoAB raiz ) {
         if ( raiz == null ) {
             this.raiz = nodo;
         }else {
-            if ( nodo.dato <= raiz.dato ) {   // SERIAS DUDAS
+            if ( nodo.dato.edad <= raiz.dato.edad ) {   
                 if (raiz.getHojaIzquierda() == null) {
                     raiz.setHojaIzquierda(nodo);
                 }
@@ -29,9 +29,12 @@ public class ArbolBinario<T> {
         }
     }
  
-    public void addNodo( NodoAB<T> nodo ) {
+    public void addNodo(NodoAB nodo ) {
         this.addNodo( nodo , this.raiz );
     }
 	
+    public void eliminarNodo(int pos) {
+    	//Aliminar nodo y asignar padre a hijos
+    }
 	
 }

@@ -1,10 +1,22 @@
 package Server;
 
+/*
+ * Listas anidades de tipo Genericas
+ * Funciones: getData, addLast, deleteData
+ * length y changeData
+ */
+
 public class List<T> {
 	
+	/*
+	 * @param first: indica el primer elemento de la lista
+	 */
 	Nodo<T> first = null;
 	
-	
+	/*
+	 * Añade un elemento a la ultima posicion de la lista
+	 * @param data: dato que se desea añadir
+	 */
 	public void addLast(T data) {
 		if (first == null) {
 			first = new Nodo<T>(data);
@@ -17,7 +29,10 @@ public class List<T> {
 			}
 		}
 	
-
+	/*
+	 * Funcion que retorna el dato que este en la posicion num
+	 * @param num: Es la posicion del dato que se desea
+	 */
 	public T getData(int num) {
 		if (first == null) {
 			return null;
@@ -32,10 +47,12 @@ public class List<T> {
 		}catch(Exception ex) {
 			return null;	
 		}
-	}
-		
+	}		
 
-
+	/*
+	 * Borra lo el nodo que este en la posicion num
+	 * @param num: posicion que se desea eliminar
+	 */
 	public void deleteData(int num) {
 		if (first == null) {
 			return;
@@ -60,6 +77,9 @@ public class List<T> {
 		return;
 	}
 	
+	/*
+	 * Indica la cantidad de elementos que tiene la lista
+	 */
 	public int length() {
 		Nodo<T> temp = first;
 		int i = 1;
@@ -70,7 +90,11 @@ public class List<T> {
 		return i;
 	}
 
-
+	/*
+	 * cambia lo que sea que este en la posicion pos por el dato T
+	 * @param pos: posicion que se desea hacer cambio
+	 * @param data: dato que se quiere cambiar
+	 */
 	public void changeData(int pos, T data) {
 		if (first == null) {
 			return;

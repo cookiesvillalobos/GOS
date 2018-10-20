@@ -19,6 +19,13 @@ public class Dragon {
 	int clase;
 	Dragon padre;
 	
+	/*
+	 * Contructor
+	 * La velocidad de recarga se asigna aleatoriamente de 1 a 100
+	 * La resistencia se asigna aleatoriamente de 1 a 3
+	 * La clase se asigna aleatoriamente, hay 70% posibilidades
+	 * de ser infanteria y un 30% de ser capitan. 
+	 */
 	public Dragon() {
 		//Velocidad de Recarga
 		int Velocidad = (int) (Math.random() * 100) + 1;
@@ -37,7 +44,9 @@ public class Dragon {
 			this.clase = 2;
 		}
 	}
-	
+	/*
+	 * Getters and Setters
+	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}

@@ -1,36 +1,36 @@
 package Server;
 
-public class NodoAB<T> {
+public class NodoAB {
 	
-	T dato;
-	NodoAB<T> padre;
-	NodoAB<T> hojaIzquierda;
-	NodoAB<T> hojaDerecha;
+	Dragon dato;
+	NodoAB padre;
+	NodoAB hojaIzquierda;
+	NodoAB hojaDerecha;
 	
 	
 	
-	public T getData() {
+	public Dragon getData() {
 		return dato;
 	}
-	public void setData(T data) {
+	public void setData(Dragon data) {
 		this.dato = data;
 	}
-	public NodoAB<T> getPadre() {
+	public NodoAB getPadre() {
 		return padre;
 	}
-	public void setPadre(NodoAB<T> padre) {
+	public void setPadre(NodoAB padre) {
 		this.padre = padre;
 	}
-	public NodoAB<T> getHojaIzquierda() {
+	public NodoAB getHojaIzquierda() {
 		return hojaIzquierda;
 	}
-	public void setHojaIzquierda(NodoAB<T> hojaIzquierda) {
+	public void setHojaIzquierda(NodoAB hojaIzquierda) {
 		this.hojaIzquierda = hojaIzquierda;
 	}
-	public NodoAB<T> getHojaDerecha() {
+	public NodoAB getHojaDerecha() {
 		return hojaDerecha;
 	}
-	public void setHojaDerecha(NodoAB<T> hojaDerecha) {
+	public void setHojaDerecha(NodoAB hojaDerecha) {
 		this.hojaDerecha = hojaDerecha;
 	}
 	

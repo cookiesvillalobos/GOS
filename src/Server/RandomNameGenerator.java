@@ -1,11 +1,20 @@
 package Server;
-
+/*
+ * Clase capas de crear nombres aleatorios
+ * los crea como "Nombre apellido"
+ */
 public class RandomNameGenerator {
-		
+	/*
+	 * @param listNames: lista enlazada de tipo String, con una lista de nombres
+	 * @param listlastNames: lista enlazada de tipo String, con una lista de apellidos
+	 */
 	List<String> listNames = new List<String>();
 	List<String> listlastNames = new List<String>();
 	
-	
+	/*
+	 * Constructor
+	 * Agreaga los nombres a listNames y apellidos a listlastNames
+	 */
 	public RandomNameGenerator() {
 		listNames.addLast("Esben");listNames.addLast("Gerd");listNames.addLast("Gisli");
 		listNames.addLast("Evar");listNames.addLast("Jorgen");listNames.addLast("Odín");
@@ -26,6 +35,9 @@ public class RandomNameGenerator {
 		
 	}
 	
+	/*
+	 * Funcion que retorna un string con un nombre y un apellidos aleatorios
+	 */
 	public String getRandomName() {
 		int randomNum = (int) (Math.random() * (listNames.length())) + 1;
 		String N = listNames.getData(randomNum);

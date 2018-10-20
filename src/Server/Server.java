@@ -1,8 +1,16 @@
 package Server;
-
+/*
+ * Clase que maneja otras, crea dragones y los acomoda
+ * ademas de seriaizar a Xml
+ */
 public class Server {
 
-	
+	/*
+	 * Funcion que crea una lista de dragonos,el tamaño de esta
+	 * lista varia dependiendo de la wave. la ronda 1 empueza con 100
+	 * dragones, en en cada nueva ronda, se suma el 20% de la anterior
+	 * @param wave: ronda en la que se encuentra el juego
+	 */
 	public List<Dragon> getListaDragones(int wave){
 		RandomAgeGenerator rag = new RandomAgeGenerator();
 		RandomNameGenerator rng = new RandomNameGenerator();
@@ -34,7 +42,12 @@ public class Server {
 	}
 	
 	
-	
+	/*
+	 * Funcion que dada una lista de dragones sin un padre 
+	 * asignado en cada dragon, le coloca uno, con el objetivo de 
+	 * despues crear una arbol de familias. El UNICO dragon sin padres 
+	 * es el comandante que solo hay uno por ronda.
+	 */
 	private List<Dragon> asignarPadres(List<Dragon> list) {
 		int max = (list.length()-2);
 		int piv = 0;
@@ -54,7 +67,18 @@ public class Server {
 	}
 
 
-
+	/*
+	 * Todos los Sorts que son necesarios para jugar
+	 * Estos tienen un 50% de ordenanrlos en forma acendente y 
+	 * 50% que forma desendente
+	 * 
+	 * selectionSort Por edades
+	 * insertionSort por velocidad de recarga
+	 * quickSort por edad
+	 * arbolBinario por familias
+	 * arbolALV por edades
+	 */
+	
 	//selectionSort Por edad  ----------------------------------------------
 	public List<Dragon> selectionSort(List<Dragon> list){
 		int ranNum = (int) (Math.random() * 100) + 1;
@@ -135,7 +159,6 @@ public class Server {
 	}
 
 
-
 	//quickSort por edad ----------------------------------------------
 	public void quickSort() {
 		
@@ -146,7 +169,7 @@ public class Server {
 		
 	}
 	
-	//por edades ----------------------------------------------
+	//arbolALV por edades ----------------------------------------------
 	public void arbolALV() {
 		
 	}
