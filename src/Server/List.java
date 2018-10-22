@@ -1,4 +1,10 @@
 package Server;
+
+//JAXB import
+import javax.xml.bind.annotation.*;
+
+@XmlRootElement(name="List")
+@XmlAccessorType (XmlAccessType.FIELD)
  public class List<T> {
 	
 	Nodo<T> first = null;
