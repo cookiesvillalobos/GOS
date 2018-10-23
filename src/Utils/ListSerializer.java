@@ -1,12 +1,25 @@
 package Utils;
 
 import java.io.File;
+import java.io.StringReader;
+import java.io.StringWriter;
 
 //JAXB imports
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 
 //Local imports
 import Server.List;
@@ -35,6 +48,26 @@ public class ListSerializer {
 		
 		
 		
+	}
+	
+	//Methods that receives an XML as a Document object and converts it to String
+	public static String XMLtoString(Document doc) throws TransformerException {
+		TransformerFactory tf = TransformerFactory.newInstance();
+		Transformer transformer = tf.newTransformer();
+		transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+		StringWriter writer = new StringWriter();
+		transformer.transform(new DOMSource(doc), new StreamResult(writer));
+		String output = writer.getBuffer().toString().replaceAll("\n|\r", "");
+		return output;
+	}
+	
+	//Method that receives a String XML and parses it as a Document Object
+	public static Document StringtoXML(String doc) throws Exception {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();  
+		DocumentBuilder builder; 
+	    builder = factory.newDocumentBuilder();  
+	    Document document = builder.parse(new InputSource(new StringReader(doc)));
+	    return document;
 	}
 
 }
