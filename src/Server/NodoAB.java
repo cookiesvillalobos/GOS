@@ -8,7 +8,10 @@ public class NodoAB {
 	NodoAB hojaDerecha;
 	
 	
-	
+	public NodoAB(Dragon dato, NodoAB padre) {
+		this.dato = dato;
+		this.padre = padre;
+	}
 	public Dragon getData() {
 		return dato;
 	}

@@ -43,6 +43,20 @@ public class ServerMain {
 		System.out.print(" - "+ d.getData(6).velocidadRecarga);
 		System.out.println(" - "+ d.getData(7).velocidadRecarga);
 		
+		S.quickSort(d);
+		System.out.print("Edad: "+ d.getData(5).edad);
+		System.out.print(" - "+ d.getData(6).edad);
+		System.out.println(" - "+ d.getData(7).edad);
+		
+		System.out.println("------------- PRUEBA Arboles -------------");
+		ArbolBinario p = new ArbolBinario();
+		p.la(d);
+		System.out.println(p.raiz.dato.nombre);
+		//System.out.println(p.raiz.hojaDerecha.dato.nombre);
+		//System.out.println(p.raiz.hojaIzquierda.dato.nombre);
+		
+		System.out.println("------------- PRUEBA Arboles AVL-------------");
+		
 		
 	}
 

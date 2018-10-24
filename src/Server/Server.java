@@ -160,10 +160,77 @@ public class Server {
 
 
 	//quickSort por edad ----------------------------------------------
-	public void quickSort() {
-		
+	public List<Dragon> quickSort(List<Dragon> list) {
+		int ranNum = (int) (Math.random() * 100) + 1;
+		if (ranNum < 50) {
+			list = quickSortM_m(list);
+		}else {
+			list = quickSortm_M(list);
+		}
+		return list;
 	}
-	
+
+	private List<Dragon> quickSortm_M(List<Dragon> list) {
+		int low = 0;
+		int high = list.length();
+		return quickSortm_M_aux(list,low,(high -1));
+	}
+	private List<Dragon> quickSortm_M_aux(List<Dragon> list, int low ,int high){
+		if (low < high) {
+            int pi = partition1(list, low, high); 
+            quickSortm_M_aux(list, low, pi-1); 
+            quickSortm_M_aux(list, pi+1, high);
+		}		
+		return list;
+	}
+
+	private int partition1(List<Dragon> list, int low, int high) {
+		Dragon pivot = list.getData(high);
+		int i = (low-1);
+		for (int j = low; j < high; j++){
+			if (list.getData(j).edad <= pivot.edad) {
+				i++;
+				Dragon D = list.getData(i);
+				list.changeData(i, list.getData(j));
+				list.changeData(j, D);
+			}
+		}
+		Dragon G = list.getData((i+1));
+		list.changeData((i+1), list.getData(high));
+		list.changeData(high, G);
+		return i+1;
+	}
+	private List<Dragon> quickSortM_m(List<Dragon> list) {
+		int low = 0;
+		int high = list.length();
+		return quickSortM_m_aux(list,low,(high -1));
+	}
+	private List<Dragon> quickSortM_m_aux(List<Dragon> list, int low, int high) {
+		if (low < high) {
+            int pi = partition(list, low, high); 
+            quickSortm_M_aux(list, low, pi-1); 
+            quickSortm_M_aux(list, pi+1, high);
+		}		
+		return list;
+	}
+	private int partition(List<Dragon> list, int low, int high) {
+		Dragon pivot = list.getData(high);
+		int i = (low-1);
+		for (int j = low; j < high; j++){
+			if (list.getData(j).edad >= pivot.edad) {
+				i++;
+				Dragon D = list.getData(i);
+				list.changeData(i, list.getData(j));
+				list.changeData(j, D);
+			}
+		}
+		Dragon G = list.getData((i+1));
+		list.changeData((i+1), list.getData(high));
+		list.changeData(high, G);
+		return i+1;
+	}
+
+
 	//arbolBinario por familias ----------------------------------------------
 	public void arbolBinario() {
 		

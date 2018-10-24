@@ -30,7 +30,7 @@ public class RandomAgeGenerator {
 	 */
 	public int getRandomAge(){
 		int randomNum = (int) (Math.random() * (ListEges.length())) + 1;
-		if (randomNum < 0 || randomNum > ListEges.length()) {
+		if (randomNum < 0 || randomNum > ListEges.length()-1) {
 			int num = getRandomAge();
 			return num;
 		}
