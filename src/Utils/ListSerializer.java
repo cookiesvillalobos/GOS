@@ -19,7 +19,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 //Gson imports
-
+import com.google.gson.*;
 
 
 import org.w3c.dom.Document;
@@ -27,6 +27,10 @@ import org.xml.sax.InputSource;
 
 //Local imports
 import Server.List;
+import Server.Nodo;
+import Server.Dragon;
+import Objects.Player;
+import Objects.Enemy;
 
 public class ListSerializer {
 	
@@ -48,9 +52,7 @@ public class ListSerializer {
 		Unmarshaller unmarshaller = context.createUnmarshaller();
 		@SuppressWarnings("unchecked")
 		List<T> list = (List<T>) unmarshaller.unmarshal(new File(location));
-		return list;
-		
-		
+		return list;	
 		
 	}
 	
@@ -74,10 +76,14 @@ public class ListSerializer {
 	    return document;
 	}
 	
-	public static String toJson(Object obj) {
-		return "";
+	//Methods that receives a Object and returns it in a jsonString
+	public static String toJsonString(Object obj) {
+		return new Gson().toJson(obj);
 	}
 	
+	//Method that receives a JSONString and return an object of the desire class
+	public static Object fromJsonString(String json, Class T) {
+		return new Gson().fromJson(json, T);
+	}
 	
-
 }
