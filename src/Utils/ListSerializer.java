@@ -18,19 +18,14 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-//Gson imports
-import com.google.gson.*;
-
-
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
+//Gson imports
+import com.google.gson.*;
+
 //Local imports
 import Server.List;
-import Server.Nodo;
-import Server.Dragon;
-import Objects.Player;
-import Objects.Enemy;
 
 public class ListSerializer {
 	
