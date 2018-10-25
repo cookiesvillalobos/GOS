@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="D:/Utilities/Downloads/JARs/sax-2.0.1.jar"/>
-	<classpathentry kind="lib" path="D:/Utilities/Downloads/JARs/jaxb-core-2.3.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/Utilities/Downloads/JARs/jaxb-api-2.2.3.jar"/>
+	<classpathentry kind="lib" path="D:/OneDriveTEC/OneDrive - Estudiantes ITCR/TEC/Semestre II 2018/Algoritmos y Bases de Datos I/Proyecto 2/Repositorio/GOS/src/JARs/gson.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

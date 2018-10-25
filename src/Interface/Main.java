@@ -116,7 +116,7 @@ public class Main extends Application {
                 if (goWestP)  {
                 	dx -= 1;
                 }
-                if (Fire) {
+                if (FireP) {
                 	dx *= 3; dy *= 3;
                 }
                 

@@ -18,6 +18,10 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+//Gson imports
+
+
+
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -69,5 +73,11 @@ public class ListSerializer {
 	    Document document = builder.parse(new InputSource(new StringReader(doc)));
 	    return document;
 	}
+	
+	public static String toJson(Object obj) {
+		return "";
+	}
+	
+	
 
 }
