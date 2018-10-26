@@ -43,6 +43,11 @@ public class LinkList <T> {
         }
         return temp.viewElement();
     }
+    
+    
+    public int length() {
+    	return this.size;
+    }
 
 
 }

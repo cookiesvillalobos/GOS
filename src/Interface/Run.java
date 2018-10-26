@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import DataStructure.LinkList;
 import Objects.Sprite;
+import Utils.Rearranger;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -103,14 +104,26 @@ public class Run extends Application{
 		return root;
 	}
 	
+	
 	private void nextlevel() {
 		spriteList.addPrev(Player);
+		/*
 		for (int i= 0; i<6; i++) {
 			Sprite Enemy = new Sprite (enemy, 1000, i*100, "enemy", width, height, Color.RED);
 			enemyList.addPrev(Enemy);
 			spriteList.addPrev(Enemy);
 			root.getChildren().add(Enemy);
 			enemys++;
+		}*/
+		for (int i = 0; i < 3; i++) {
+			for(int j = 0; j < Math.pow(2, (double) i); j++){
+				Sprite Enemy = new Sprite (enemy, 800 + 100*i, 100*(1+j), "enemy", width, height, Color.RED);
+				System.out.println("Crean dragon en x: " + (800 + 100*i) + " y en y: " + 100*(1+j) );
+				enemyList.addPrev(Enemy);
+				spriteList.addPrev(Enemy);
+				root.getChildren().add(Enemy);
+				enemys++;
+			}
 		}
 	}
 	
