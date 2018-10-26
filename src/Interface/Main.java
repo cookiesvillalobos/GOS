@@ -1,7 +1,10 @@
 package Interface;
 
 
+//Object imports
 import Objects.Player;
+import Objects.Enemy;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -13,21 +16,33 @@ import javafx.scene.image.*;
 import javafx.scene.input.KeyEvent;
 
 public class Main extends Application {
+	
+	//Virtual Screen Resolution
 	private final double Width =600;
 	private final double Height = 400;
 	
-	private final String pathImage = "Objects/player (1).png";
+	//Variables for player
+	private final String playerPathImage = "Objects/player (1).png";
 	private Image playerImage;
-	
 	private Node player;
-	
 	private Player Player = new Player(Width,Height);
+	private boolean goNorthP, goSouthP, goEastP, goWestP, FireP;
 	
-	private boolean goNorthP, goSouthP, goEastP, goWestP, Fire;
+	//Variables for enemy
+	private final String enemyPathImage = "Objects/enemy.png";
+	private Image enemyImage;
+	private Node enemy;
+	private Enemy Enemy = new Enemy(Width, Height);
+	private boolean goNorthE, goSouthE, goEastE, goWestE, FireE;
+	
+	
+	
+	
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		playerImage = new Image (pathImage);
+		playerImage = new Image (playerPathImage);
 		player = new ImageView(playerImage);
 		
 		Group dungeon = new Group(player);
@@ -53,7 +68,7 @@ public class Main extends Application {
 					break;
 				case RIGHT: goEastP =true;
 					break;
-				case SHIFT: Fire =true;
+				case SHIFT: FireP =true;
 					break;
 
 		
@@ -74,7 +89,7 @@ public class Main extends Application {
                     	break;
                     case RIGHT: goEastP  = false;
                     	break;
-                    case SHIFT: Fire = false;
+                    case SHIFT: FireP = false;
                     	break;
                 }
             }
@@ -101,7 +116,7 @@ public class Main extends Application {
                 if (goWestP)  {
                 	dx -= 1;
                 }
-                if (Fire) {
+                if (FireP) {
                 	dx *= 3; dy *= 3;
                 }
                 

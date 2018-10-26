@@ -1,3 +1,4 @@
+
 package Server;
 
 /*
@@ -14,8 +15,8 @@ public class List<T> {
 	Nodo<T> first = null;
 	
 	/*
-	 * Añade un elemento a la ultima posicion de la lista
-	 * @param data: dato que se desea añadir
+	 * Aï¿½ade un elemento a la ultima posicion de la lista
+	 * @param data: dato que se desea aï¿½adir
 	 */
 	public void addLast(T data) {
 		if (first == null) {
