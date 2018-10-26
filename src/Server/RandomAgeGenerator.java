@@ -1,24 +1,39 @@
 package Server;
- import java.util.Random;
- public class RandomAgeGenerator {
- 	List<Integer> ListEges; 
+/*
+ * Clase capas de crear numeros aleatorios de 1 a 1000
+ * pero sin que se repitan
+ */
+public class RandomAgeGenerator {
+	/*
+	 * @param ListEges: lista generica con las edades que no se 
+	 * han usado
+	 */
+	List<Integer> ListEges; 
 	
-	
+	/*
+	 * Constructor:
+	 * rellena la lista con 999 elementos tipo entero
+	 */
 	public RandomAgeGenerator() {
 		List<Integer> list = new List<Integer>();
 		int max = 1000;
-		for (int i = 0; i >= max;i++) {
+		for (int i = 1; i <= max;i++) {
 			list.addLast(i);
 		}
 		this.ListEges = list;
 	}
 	
-	
+	/*
+	 * Funcion que toma un elemento aleatorio de la lista
+	 * lo retorna, pero anteas lo elimina de la lista
+	 * para que no se repita.
+	 */
 	public int getRandomAge(){
-		Random rn = new Random();
-		int n = 1000 - 0 + 1;
-		int i = rn.nextInt() % n;
-		int randomNum =  0 + i;
+		int randomNum = (int) (Math.random() * (ListEges.length())) + 1;
+		if (randomNum < 0 || randomNum > ListEges.length()-1) {
+			int num = getRandomAge();
+			return num;
+		}
 		int num = ListEges.getData(randomNum);
 		ListEges.deleteData(randomNum);
 		return num;

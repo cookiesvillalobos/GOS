@@ -1,21 +1,21 @@
+
 package Server;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement(name="Nodo")
- public class Nodo<T> {
-	
+/*
+ * Clase necesaria para hacer las listas enlazadas
+ */
+public class Nodo<T> {
+	/*
+	 * @param data: es el dato que contiene el nodo de tipo generico
+	 * @param next: es a donde esta apuntado el nodo, si no hay 
+	 * nadie es nulo
+	 */
 	T data;
-	
-	public T getData() {
-		return this.data;
-	}
-	
 	Nodo<T> next;
 	
-	
+	/*
+	 * Constructor
+	 * @param data2: es el dato que se desea que tenga el nodo.
+	 */
 	public Nodo(T data2) {
 		this.data = data2;
 		this.next = null;
