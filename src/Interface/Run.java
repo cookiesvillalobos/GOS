@@ -35,6 +35,8 @@ public class Run extends Application{
 	int indicatorE = 0;
 	int enemys = 0;
 	
+	int Points = 0;
+	
 	private double width = 1500;
 	private double height = 600;
 	private double t = 0;
@@ -43,16 +45,16 @@ public class Run extends Application{
 	LinkList<Sprite> bulletPList = new LinkList<>();
 	LinkList<Sprite> bulletEList = new LinkList<>();
 	LinkList<Sprite> spriteList = new LinkList<>();
+	
+	
 		
 	private Sprite Player = new Sprite(player, 300.0, 100.0, "player", width, height, Color.BLUE);
-	private Sprite hola = new Sprite(player, 500.0, 200.0, "player", width, height, Color.BLUE);
 	
 	private Parent createContent() {
 		root.setPrefSize(width, height);
 		
 		root.getChildren().add(canvas);
 		root.getChildren().add(Player);
-		root.getChildren().add(hola);
 		nextlevel();
 		
 		AnimationTimer timer = new AnimationTimer() {
@@ -61,26 +63,30 @@ public class Run extends Application{
 			public void handle(long now) {
 				gc.drawImage(back, 0, 0);
 				Player.render(gc);
-				hola.render(gc);
+				gc.fillText("Points " + Points, 360, 36);
+				gc.strokeText("Points " + Points, 360, 36);
 				
-				for (int i= 0; i<6; i++) {
-					if (!enemyList.see(i).getDead()) {
-					enemyList.see(i).render(gc);
-					
+				for (int i= 0; i<enemys; i++) {
+					if (!enemyList.see(i).getDead() && enemyList.see(i).getPositionX() != 0) {
+						enemyList.see(i).render(gc);
+						enemyList.see(i).moveLeft();
 					}
 					else {
+						enemyList.see(i).setPosition(500, 800);
 						root.getChildren().remove(enemyList.see(i));
+						//System.out.println(Points);
 					}
 				}
-				
 				for (int a= 0; a<indicatorE; a++) {
+					/*
 					Sprite bullet = bulletPList.see(a);
-					if (!bullet.getDead()) {
+					if (!bullet.getDead()&& bullet.getPositionX() != 800) {
 						double xtemp = bullet.getPositionX();
 						if (xtemp >width-425) {
 							bullet.setPosition(50000, 10000);
 						}
 						else {
+						
 							bullet.moveRight();
 							//bullet.setPosition(bullet.getPositionX()+10, bullet.getPositionY());
 						
@@ -89,6 +95,15 @@ public class Run extends Application{
 					}
 					else {
 						root.getChildren().remove(bullet);
+					}
+					*/
+					if (!bulletPList.see(a).getDead() ) {
+						bulletPList.see(a).render(gc);
+						bulletPList.see(a).moveRight();
+					}
+					else {
+						bulletPList.see(a).setPosition(500, 800);
+						root.getChildren().remove(bulletPList.see(a));
 					}
 					
 					
@@ -118,7 +133,7 @@ public class Run extends Application{
 		for (int i = 0; i < 3; i++) {
 			for(int j = 0; j < Math.pow(2, (double) i); j++){
 				Sprite Enemy = new Sprite (enemy, 800 + 100*i, 100*(1+j), "enemy", width, height, Color.RED);
-				System.out.println("Crean dragon en x: " + (800 + 100*i) + " y en y: " + 100*(1+j) );
+				//System.out.println("Crean dragon en x: " + (800 + 100*i) + " y en y: " + 100*(1+j) );
 				enemyList.addPrev(Enemy);
 				spriteList.addPrev(Enemy);
 				root.getChildren().add(Enemy);
@@ -130,6 +145,7 @@ public class Run extends Application{
 
 	private void update2() {
 		int indicatorT = indicatorE + enemys +1;
+		t+=0.016;
 		for (int a = 0; a<indicatorT; a++) {
 			Sprite s = spriteList.see(a);
 			if (s.getDead()) {
@@ -143,24 +159,40 @@ public class Run extends Application{
 				s.moveRight();
 				for (int e = 0; e<enemys; e++) {
 					Sprite enemy = enemyList.see(e);
-					if (s.intersects(enemy)) {
-						enemy.setDead(true);
-						s.setDead(true);
+					if(s.getDead()==false) {
+						
+						if (s.intersects(enemy)) {
+							System.out.println("Entró");
+							enemy.setDead(true);
+							s.setDead(true);
+							Points++;
+						}
 						
 					}
 				}
 				break;
 			}
 			else if (s.getType().equals("enemy")) {
+				
+				if(t>2) {
+					System.out.println("hola");
+					if(Math.random() < 0.3) {
+						System.out.println("ja");
+						shoot(s);
+					}
+				}
 				break;
 			}
 
 		}
+
 		
 	}
 
 	private void shoot(Sprite who) {
+		System.out.println("shoot" + indicatorE);
 		indicatorE++;
+		System.out.println(indicatorE);
 		Sprite s = new Sprite (fireballE, who.getTranslateX(), who.getTranslateY()+20,who.getType()+"bullet", width, height, Color.BLACK );
 		bulletPList.addPrev(s);
 		spriteList.addPrev(s);
