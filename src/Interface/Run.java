@@ -116,9 +116,14 @@ public class Run extends Application{
 	
 	private void nextlevel() {
 		spriteList.addPrev(Player);
+		double divisor = 1.00;
+		double prevDivisor = divisor;
 		for (int i = 0; i < 3; i++) {
+			prevDivisor = divisor;
+			divisor = divisor/2;
 			for(int j = 0; j < Math.pow(2, (double) i); j++){
-				Sprite Enemy = new Sprite (enemy, 800 + 100*i, 100*(1+j), "enemy", width, height, Color.RED);
+				int y_pos = (int) (height*divisor + j*(height*prevDivisor));
+				Sprite Enemy = new Sprite (enemy, 800 + 100*i, y_pos, "enemy", width, height, Color.RED);
 				enemyList.addPrev(Enemy);
 				spriteList.addPrev(Enemy);
 				root.getChildren().add(Enemy);
