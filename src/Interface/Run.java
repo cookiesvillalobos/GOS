@@ -63,53 +63,47 @@ public class Run extends Application{
 			public void handle(long now) {
 				gc.drawImage(back, 0, 0);
 				Player.render(gc);
-				gc.fillText("Points " + Points, 360, 36);
-				gc.strokeText("Points " + Points, 360, 36);
+				gc.fillText("Points " + Points, 100, 36);
+				gc.strokeText("Points " + Points, 100, 36);
 				
 				for (int i= 0; i<enemys; i++) {
 					if (!enemyList.see(i).getDead() && enemyList.see(i).getPositionX() != 0) {
 						enemyList.see(i).render(gc);
+						System.out.println(enemyList.see(i).getDragon().getVelocidadRecarga());
+						if (t>100) {
+							t = 0;
+						}
+						if (enemyList.see(i).getDragon().getVelocidadRecarga() == t) {
+							shoot(enemyList.see(i));
+							
+						}
 						enemyList.see(i).moveLeft();
+						t++;
 					}
 					else {
 						enemyList.see(i).setPosition(500, 800);
 						root.getChildren().remove(enemyList.see(i));
-						//System.out.println(Points);
 					}
 				}
 				for (int a= 0; a<indicatorE; a++) {
-					/*
-					Sprite bullet = bulletPList.see(a);
-					if (!bullet.getDead()&& bullet.getPositionX() != 800) {
-						double xtemp = bullet.getPositionX();
-						if (xtemp >width-425) {
-							bullet.setPosition(50000, 10000);
-						}
-						else {
+					if(bulletPList.see(a).getType().equals("enemybullet")) {
+						bulletPList.see(a).moveLeft();
+						bulletPList.see(a).render(gc);
 						
-							bullet.moveRight();
-							//bullet.setPosition(bullet.getPositionX()+10, bullet.getPositionY());
-						
-						}
-						bullet.render(gc);
 					}
-					else {
-						root.getChildren().remove(bullet);
-					}
-					*/
-					if (!bulletPList.see(a).getDead() ) {
+					else if (!bulletPList.see(a).getDead() ) {
 						bulletPList.see(a).render(gc);
 						bulletPList.see(a).moveRight();
 					}
 					else {
 						bulletPList.see(a).setPosition(500, 800);
+						bulletPList.see(a).setDead(true);
 						root.getChildren().remove(bulletPList.see(a));
 					}
 					
 					
 				}
 				update2();
-				//update();
 			}
 			
 		};
@@ -122,18 +116,9 @@ public class Run extends Application{
 	
 	private void nextlevel() {
 		spriteList.addPrev(Player);
-		/*
-		for (int i= 0; i<6; i++) {
-			Sprite Enemy = new Sprite (enemy, 1000, i*100, "enemy", width, height, Color.RED);
-			enemyList.addPrev(Enemy);
-			spriteList.addPrev(Enemy);
-			root.getChildren().add(Enemy);
-			enemys++;
-		}*/
 		for (int i = 0; i < 3; i++) {
 			for(int j = 0; j < Math.pow(2, (double) i); j++){
 				Sprite Enemy = new Sprite (enemy, 800 + 100*i, 100*(1+j), "enemy", width, height, Color.RED);
-				//System.out.println("Crean dragon en x: " + (800 + 100*i) + " y en y: " + 100*(1+j) );
 				enemyList.addPrev(Enemy);
 				spriteList.addPrev(Enemy);
 				root.getChildren().add(Enemy);
@@ -145,7 +130,6 @@ public class Run extends Application{
 
 	private void update2() {
 		int indicatorT = indicatorE + enemys +1;
-		t+=0.016;
 		for (int a = 0; a<indicatorT; a++) {
 			Sprite s = spriteList.see(a);
 			if (s.getDead()) {
@@ -162,7 +146,6 @@ public class Run extends Application{
 					if(s.getDead()==false) {
 						
 						if (s.intersects(enemy)) {
-							System.out.println("Entró");
 							enemy.setDead(true);
 							s.setDead(true);
 							Points++;
@@ -172,27 +155,13 @@ public class Run extends Application{
 				}
 				break;
 			}
-			else if (s.getType().equals("enemy")) {
-				
-				if(t>2) {
-					System.out.println("hola");
-					if(Math.random() < 0.3) {
-						System.out.println("ja");
-						shoot(s);
-					}
-				}
-				break;
-			}
 
 		}
-
-		
 	}
 
+
 	private void shoot(Sprite who) {
-		System.out.println("shoot" + indicatorE);
 		indicatorE++;
-		System.out.println(indicatorE);
 		Sprite s = new Sprite (fireballE, who.getTranslateX(), who.getTranslateY()+20,who.getType()+"bullet", width, height, Color.BLACK );
 		bulletPList.addPrev(s);
 		spriteList.addPrev(s);

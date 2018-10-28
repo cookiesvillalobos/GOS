@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import Server.Dragon;
 import javafx.geometry.Rectangle2D;
 
 public class Sprite extends Rectangle {
@@ -17,6 +18,7 @@ public class Sprite extends Rectangle {
     private boolean dead = false;
     private double widthS;
     private double heightS;
+    private Dragon dragon;
     
     
     
@@ -30,6 +32,7 @@ public class Sprite extends Rectangle {
     	this.widthS = widthS;
     	this.heightS = heightS;
     	this.type = type;
+    	dragon = new Dragon();
     }
     
     public void setImage(Image image) {
@@ -126,6 +129,10 @@ public class Sprite extends Rectangle {
     
     public Image getImage () {
     	return this.image;
+    }
+    
+    public Dragon getDragon () {
+    	return this.dragon;
     }
     
     

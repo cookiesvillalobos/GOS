@@ -61,6 +61,10 @@ public class Dragon {
 	public void setClase(int clase) {
 		this.clase = clase;
 	}
+	
+	public int getVelocidadRecarga() {
+		return this.velocidadRecarga;
+	}
 
 	
 }
