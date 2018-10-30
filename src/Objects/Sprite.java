@@ -67,44 +67,44 @@ public class Sprite extends Rectangle {
         return s.getBoundary().intersects( this.getBoundary() );
     }
     
-    public void moveLeft() {
-    	positionX = positionX-5;
-    	setTranslateX(getTranslateX()-5);
+    public void moveLeft(int amount) {
+    	positionX = positionX-amount;
+    	setTranslateX(getTranslateX()-amount);
     	
     	if (positionX < 0) {
-			positionX = positionX + 5;
-			setTranslateX(getTranslateX()+5);
+			positionX = positionX + amount;
+			setTranslateX(getTranslateX()+amount);
 		}
     }
     
-    public void moveRight() {
-    	positionX = positionX+5;
-    	setTranslateX(getTranslateX()+5);
+    public void moveRight(int amount) {
+    	positionX = positionX+amount;
+    	setTranslateX(getTranslateX()+amount);
     	if (this.type == "playerbullet") {
     		return;
     	}
     	else if (positionX > widthS-425) {
-			positionX = positionX - 5;
-			setTranslateX(getTranslateX()-5);
+			positionX = positionX - amount;
+			setTranslateX(getTranslateX()-amount);
 		}
     }
     
-    public void moveUp() {
-    	positionY = positionY -5;
-    	setTranslateY(getTranslateY()-5);
+    public void moveUp(int amount) {
+    	positionY = positionY -amount;
+    	setTranslateY(getTranslateY()-amount);
 		if (positionY < 0) {
-			positionY = positionY + 5;
-			setTranslateY(getTranslateY()+5);
+			positionY = positionY + amount;
+			setTranslateY(getTranslateY()+amount);
 		}
     }
     
-    public void moveDown() {
-    	positionY = positionY +5;
-    	setTranslateY(getTranslateY()+5);
+    public void moveDown(int amount) {
+    	positionY = positionY +amount;
+    	setTranslateY(getTranslateY()+amount);
 
     	if (positionY > heightS-50) {
-			positionY = positionY - 5;
-			setTranslateY(getTranslateY()-5);
+			positionY = positionY - amount;
+			setTranslateY(getTranslateY()-amount);
 		}
     }
     

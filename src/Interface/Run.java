@@ -18,15 +18,26 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+//Logback imports
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Run extends Application{
 	
+	//Logback variables
+	private final Logger log = LoggerFactory.getLogger(Run.class);
+	
 	private Pane root = new Pane();
+	
+	private double width = 1500;
+	private double height = 600;
+	private double t = 0;
 	
 	String fireballP = "Objects/fireballP (1).png";
 	String fireballE = "Objects/fireball.png";
 	String player = "Objects/player (1).png";
 	String enemy = "Objects/enemy (1).png";
-	Image back = new Image( "Objects/backgroundImage.png");
+	Image back = new Image( "Objects/backgroundImage.png", width, height, false, false);
 	
 	Canvas canvas = new Canvas(1500,600);
 	GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -36,10 +47,6 @@ public class Run extends Application{
 	int enemys = 0;
 	
 	int Points = 0;
-	
-	private double width = 1500;
-	private double height = 600;
-	private double t = 0;
 	
 	LinkList<Sprite> enemyList = new LinkList<>();
 	LinkList<Sprite> bulletPList = new LinkList<>();
@@ -77,7 +84,7 @@ public class Run extends Application{
 							shoot(enemyList.see(i));
 							
 						}
-						enemyList.see(i).moveLeft();
+						enemyList.see(i).moveLeft(1);
 						t++;
 					}
 					else {
@@ -87,13 +94,13 @@ public class Run extends Application{
 				}
 				for (int a= 0; a<indicatorE; a++) {
 					if(bulletPList.see(a).getType().equals("enemybullet")) {
-						bulletPList.see(a).moveLeft();
+						bulletPList.see(a).moveLeft(5);
 						bulletPList.see(a).render(gc);
 						
 					}
 					else if (!bulletPList.see(a).getDead() ) {
 						bulletPList.see(a).render(gc);
-						bulletPList.see(a).moveRight();
+						bulletPList.see(a).moveRight(5);
 					}
 					else {
 						bulletPList.see(a).setPosition(500, 800);
@@ -118,15 +125,16 @@ public class Run extends Application{
 		spriteList.addPrev(Player);
 		double divisor = 1.00;
 		double prevDivisor = divisor;
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 4; i++) {
 			prevDivisor = divisor;
 			divisor = divisor/2;
 			for(int j = 0; j < Math.pow(2, (double) i); j++){
 				int y_pos = (int) (height*divisor + j*(height*prevDivisor));
-				Sprite Enemy = new Sprite (enemy, 800 + 100*i, y_pos, "enemy", width, height, Color.RED);
+				Sprite Enemy = new Sprite (enemy, 800 + 100*i, y_pos - 24, "enemy", width, height, Color.RED);
 				enemyList.addPrev(Enemy);
 				spriteList.addPrev(Enemy);
 				root.getChildren().add(Enemy);
+				log.debug("New dragon has been pasted onto the screen: {}", Enemy.toString());
 				enemys++;
 			}
 		}
@@ -141,11 +149,11 @@ public class Run extends Application{
 				break;
 			}
 			else if (s.getType().equals("enemybullet")) {
-				s.moveLeft();
+				s.moveLeft(5);
 				break;
 			}
 			else if (s.getType().equals("playerbullet")) {
-				s.moveRight();
+				s.moveRight(5);
 				for (int e = 0; e<enemys; e++) {
 					Sprite enemy = enemyList.see(e);
 					if(s.getDead()==false) {
@@ -184,16 +192,16 @@ public class Run extends Application{
 		scene.setOnKeyPressed(e -> {
 			switch (e.getCode()) {
 			case LEFT:
-				Player.moveLeft();
+				Player.moveLeft(5);
 				break;
 			case RIGHT:
-				Player.moveRight();
+				Player.moveRight(5);
 				break;
 			case DOWN:
-				Player.moveDown();
+				Player.moveDown(5);
 				break;
 			case UP:
-				Player.moveUp();
+				Player.moveUp(5);
 				break;
 			case SPACE:
 				shoot(Player);
