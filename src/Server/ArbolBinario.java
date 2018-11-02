@@ -4,102 +4,46 @@ public class ArbolBinario {
 	
 	NodoAB raiz;
 
-	private void addNodo(Dragon drag, Nodo<Dragon> padre, NodoAB raiz) {
-		if (raiz.dato == null || padre.data == null) {
+
+
+	public ArbolBinario() {
+		
+	}
+
+
+	public void addNodo(Dragon drag) {
+		if (drag == null) {
+			return;
+		}else {
+			addNodo(drag, raiz);
+		}	
+	}
+
+
+	private void addNodo(Dragon drag, NodoAB raiz2) {
+		if(raiz2 == null) {
 			return;
 		}
-       if (raiz.dato.edad == padre.data.edad) {
-    	   if (raiz.getHojaDerecha() == null) {
-    		   raiz.setHojaDerecha(new NodoAB(drag,raiz));
-    	   }else if (raiz.getHojaIzquierda() == null) {
-    		   raiz.setHojaIzquierda(new NodoAB(drag,raiz));
-    	   }
-    	   return;
-       }else {
-    	   if (raiz.hojaDerecha != null) {
-    		   addNodo(drag,padre,raiz.hojaDerecha);
-    	   }
-    	   if (raiz.hojaIzquierda != null) {
-    		   addNodo(drag,padre,raiz.hojaIzquierda);
-    	   }
-       }
-       return;
-    }
-
-
-    public void eliminarNodo(int pos) {
-    	//Aliminar nodo y asignar padre a hijos
-    }
-    
-    private List<Dragon> getHijos(List<Dragon> lista, Dragon padre) {
-    	Nodo<Dragon> temp = lista.first;
-    	List<Dragon> CS = new List<Dragon>();
-    	int cont = 0;
-    	while(temp.next != null) {
-    		if (temp.data.padre.edad == padre.edad) {
-    			CS.addLast(temp.data);
-    			cont++;
-    		}
-    		temp = temp.next;
-    	}
-    	if (temp.data.padre.edad == padre.edad) {
-			CS.addLast(temp.data);
-			cont++;
-    	}
-    	if(cont == 0) {
-    		return null;
-    	}
-    	return CS;
-    }
-  
-    
-    public void la(List<Dragon> list) {
-    	int cont = 0;
-    	Nodo<Dragon> temp = list.first;
-    	if(raiz == null) {
-    		this.raiz = new NodoAB(temp.data, null);
-    		cont++;
-    	}
-    	
-    	while(temp.next != null) {
-    		if (cont == 0) {
-    			addPadre(temp,list);
-    		}
-    		cont = 0;
-    		addhijos(temp, list);
-    		temp = temp.next;
-    	}
-    	addhijos(temp, list);
-    }
-    
-    private void addhijos(Nodo<Dragon> tata, List<Dragon> list) {
-    	List<Dragon> l = getHijos(list,tata.data);
-    	if(l == null || l.length() == 1) {
-    		return;
-    	}
-    	if (l.getData(1) != null && l.getData(2) != null)
-    		addNodo(l.getData(1), tata, raiz);
-    		addNodo(l.getData(2), tata, raiz);
-    }
-    
-    private void addPadre(Nodo<Dragon> padre, List<Dragon> list) {
-    	addNodoPadre(padre.data,list);
-    }
-
-
-	private void addNodoPadre(Dragon data,List<Dragon> list) {
-		Nodo<Dragon> temp = list.first;
-		while(temp.next != null) {
-			if (temp.data.edad == data.padre.edad) {
-				addNodo(data,temp,raiz);
+		if (raiz2.dato.edad == drag.padre.edad) {
+			NodoAB nodo = new NodoAB(drag,raiz);
+			if (raiz2.getHojaDerecha() == null) {
+				raiz2.setHojaDerecha(nodo);
+			}else {
+				raiz2.setHojaIzquierda(nodo);
 			}
-			temp= temp.next;
+		}else {
+			addNodo(drag,raiz2.hojaDerecha);
+			addNodo(drag,raiz2.hojaIzquierda);
 		}
-		if (temp.data.edad == data.padre.edad) {
-			addNodo(data,temp,raiz);
-		}
+		
 	}
-    
-    
-}
+	
+	public NodoAB getRaiz() {
+		return raiz;
+	}
 
+
+	public void setRaiz(NodoAB raiz) {
+		this.raiz = raiz;
+	}
+}

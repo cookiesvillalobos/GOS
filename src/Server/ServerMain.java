@@ -49,13 +49,17 @@ public class ServerMain {
 		System.out.println(" - "+ d.getData(7).edad);
 		
 		System.out.println("------------- PRUEBA Arboles -------------");
-		ArbolBinario p = new ArbolBinario();
-		p.la(d);
-		System.out.println(p.raiz.dato.nombre);
-		//System.out.println(p.raiz.hojaDerecha.dato.nombre);
-		//System.out.println(p.raiz.hojaIzquierda.dato.nombre);
+		ArbolBinario A = S.arbolBinario(d);
+		System.out.println(A.raiz.dato.nombre);
+		System.out.println(A.raiz.hojaDerecha.dato.nombre);
+		System.out.println(A.raiz.hojaIzquierda.dato.nombre);
+		System.out.println(A.raiz.hojaIzquierda.hojaIzquierda.dato.nombre);
 		
 		System.out.println("------------- PRUEBA Arboles AVL-------------");
+		
+		AVLTree G = S.arbolALV(d);
+		System.out.println(G.root.data.nombre);
+
 		
 		
 	}

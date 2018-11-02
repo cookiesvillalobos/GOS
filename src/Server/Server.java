@@ -1,9 +1,20 @@
 package Server;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 /*
  * Clase que maneja otras, crea dragones y los acomoda
  * ademas de seriaizar a Xml
  */
 public class Server {
+	
+	private static final Logger logger = LoggerFactory.getLogger(Server.class);
+	
+	
+	
 
 	/*
 	 * Funcion que crea una lista de dragonos,el tamaño de esta
@@ -12,9 +23,11 @@ public class Server {
 	 * @param wave: ronda en la que se encuentra el juego
 	 */
 	public List<Dragon> getListaDragones(int wave){
+		logger.info("Se inica la lista de los Dragones");
 		RandomAgeGenerator rag = new RandomAgeGenerator();
 		RandomNameGenerator rng = new RandomNameGenerator();
 		List<Dragon> list = new List<Dragon>();
+		int pos2 = 1;
 		//Cantidad de dragones por oleada
 		float num = 100;
 		int a = 0;
@@ -29,6 +42,9 @@ public class Server {
 		drag.setEdad(rag.getRandomAge());
 		drag.setNombre(rng.getRandomName());
 		drag.setClase(3);
+		drag.setPos(pos2);
+		list.addLast(drag);
+		pos2++;
 		
 		//----Crear resto de dragones----
 		for (int i = 0; i <= (num-1); i++) {
@@ -36,6 +52,8 @@ public class Server {
 			drag.setEdad(rag.getRandomAge());
 			drag.setNombre(rng.getRandomName());
 			list.addLast(drag);
+			drag.setPos(pos2);
+			pos2++;
 		}
 		list = asignarPadres(list);
 		return list;
@@ -50,17 +68,21 @@ public class Server {
 	 */
 	private List<Dragon> asignarPadres(List<Dragon> list) {
 		int max = (list.length()-2);
-		int piv = 0;
+		int piv = 1;
 		Nodo<Dragon> F = list.first;
 		while (piv <= max) {
 			Dragon d = list.getData(piv);
 			d.setPadre(F.data);
 			list.changeData(piv, d);
+			F.data.setHijo1(list.getData(piv));
+			
 			piv++;
-			Dragon m = list.getData(piv);
-			m.setPadre(F.data);
-			list.changeData(piv, m);
+			d = list.getData(piv);
+			d.setPadre(F.data);
+			list.changeData(piv, d);
+			F.data.setHijo2(list.getData(piv));
 			piv++;
+			
 			F = F.next;
 		}
 		return list;
@@ -232,13 +254,23 @@ public class Server {
 
 
 	//arbolBinario por familias ----------------------------------------------
-	public void arbolBinario() {
-		
+	public ArbolBinario arbolBinario(List<Dragon> list) {
+		ListToTree p = new ListToTree();
+		p.listToTree2(list);
+		return p.b;
 	}
 	
 	//arbolALV por edades ----------------------------------------------
-	public void arbolALV() {
+	public AVLTree arbolALV(List<Dragon> list) {
+		AVLTree a = new AVLTree();
 		
+		Nodo<Dragon> temp = list.first;
+		while(temp.next != null) {
+			a.insert(temp.data);
+			temp = temp.next;
+		}
+		a.insert(temp.data);
+		return a;
 	}
 	
 }

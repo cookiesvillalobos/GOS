@@ -40,11 +40,15 @@ public class RandomNameGenerator {
 	 */
 	public String getRandomName() {
 		int randomNum = (int) (Math.random() * (listNames.length())) + 1;
-		String N = listNames.getData(randomNum);
+		String N = listNames.getData(randomNum - 1);
 		
 		int randomNum2 = (int) (Math.random() * (listlastNames.length())) + 1;
-		String L = listlastNames.getData(randomNum2);
+		String L = listlastNames.getData(randomNum2 - 1);
 		
+		if(N == null || L == null) {
+			N = "Odin";
+			L = "Tennfjord";
+		}
 		String name = N + " " + L;
 		return name;
 	}
