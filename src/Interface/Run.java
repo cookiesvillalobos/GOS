@@ -10,14 +10,18 @@ import Objects.Sprite;
 import Utils.Rearranger;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -221,14 +225,11 @@ public class Run extends Application{
 	}
 	
 	private Parent newWindow() {
-		Pane nuevo = new Pane(); 
-		nuevo.setPrefSize(300, 1000);
+		ScrollPane sp = new ScrollPane();
 		
-		Canvas canvas = new Canvas(300,1000);
+		Canvas canvas = new Canvas(300,500);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		
-		nuevo.getChildren().add(canvas);
-		
+		sp.setContent(canvas);
 		
 		
 		AnimationTimer timer = new AnimationTimer() {
@@ -263,7 +264,7 @@ public class Run extends Application{
 		
 		
 		timer.start();
-		return nuevo;
+		return sp;
 	}
 
 
