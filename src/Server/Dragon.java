@@ -53,15 +53,11 @@ public class Dragon {
 	/*
 	 * Getters and Setters
 	 */
-	public int getVelocidadRecarga() {
-		return velocidadRecarga;
-	}
+	
 	public void setVelocidadRecarga(int velocidadRecarga) {
 		this.velocidadRecarga = velocidadRecarga;
 	}
-	public int getResistencia() {
-		return resistencia;
-	}
+
 	public void setResistencia(int resistencia) {
 		this.resistencia = resistencia;
 	}
@@ -98,5 +94,39 @@ public class Dragon {
 	public void setHijo2(Dragon hijo2) {
 		this.hijo2 = hijo2;
 	}
+	
+	public int getAge() {
+		return this.edad;
+	}
+	
+	public String getName() {
+		return this.nombre;
+	}
+	
+	public Dragon getFather() {
+		return this.padre;
+	}
+	
+	public int getResistencia() {
+		return resistencia;
+	}
+	
+	public int getVelocidadRecarga() {
+		return velocidadRecarga;
+	}
+	
+	public String getClas() {
+		if (clase == 1) {
+			return "Infanteria";
+		}
+		
+		else {
+			return "Capitán";
+		}
+	}
+	
+	
+	
+	
 	
 }

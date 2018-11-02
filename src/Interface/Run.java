@@ -35,6 +35,10 @@ public class Run extends Application{
 	private double height = 600;
 	private double t = 0;
 	
+	String name;
+	String fathername;
+	String position;
+	
 	String fireballP = "Objects/fireballP (1).png";
 	String fireballE = "Objects/fireball.png";
 	String player = "Objects/player (1).png";
@@ -43,6 +47,10 @@ public class Run extends Application{
 	
 	Canvas canvas = new Canvas(1500,600);
 	GraphicsContext gc = canvas.getGraphicsContext2D();
+	
+	int age;
+	int velocity;
+	int resistance;
 	
 	int indicatorP = 0;
 	int indicatorE = 0;
@@ -198,6 +206,66 @@ public class Run extends Application{
 		root.getChildren().add(s);
 	
 	}
+	
+	
+	public void nuevaVentana() {
+		Stage stage = new Stage();
+        Scene scene = new Scene(newWindow());
+
+        stage.setScene(scene);
+        stage.setTitle("Nueva Ventana");
+        
+        stage.show();
+        
+
+	}
+	
+	private Parent newWindow() {
+		Pane nuevo = new Pane(); 
+		nuevo.setPrefSize(300, 1000);
+		
+		Canvas canvas = new Canvas(300,1000);
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		
+		nuevo.getChildren().add(canvas);
+		
+		
+		
+		AnimationTimer timer = new AnimationTimer() {
+
+			@Override
+			public void handle(long now) {
+				//gc.drawImage(back, 0, 0);
+				for (int i =0; i<enemys; i++) {
+					Sprite s = enemyList.see(i);
+					if (!s.getDead()) {
+						//name = s.getDragon().getName();
+						name = "No hay todavía";
+						velocity = s.getDragon().getVelocidadRecarga();
+						age = s.getDragon().getAge();
+						resistance = s.getDragon().getResistencia();
+						position = s.getDragon().getClas();
+						//fathername = s.getDragon().getFather().getName();
+						fathername = "Aún no";
+
+						gc.fillText("Nombre " + name, 100, 10+(140*i));
+						gc.fillText("Velocidad Recarga " + velocity, 100, 30+(140*i));
+						gc.fillText("Edad " + age, 100, 50+(140*i));
+						gc.fillText("Resistencia " + resistance, 100, 70+(140*i));
+						gc.fillText("Clase " + position, 100, 90+(140*i));
+						gc.fillText("Father Name " + fathername, 100, 110+(140*i));
+						gc.fillText("***************************************", 100, 130+(140*i));
+						
+					}
+				}	
+			}	
+		};
+		
+		
+		timer.start();
+		return nuevo;
+	}
+
 
 	
 	@Override
@@ -231,6 +299,8 @@ public class Run extends Application{
 		
 		stage.setScene(scene);
 		stage.show();
+		
+		nuevaVentana();
 		
 	}
 	
