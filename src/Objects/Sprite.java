@@ -1,4 +1,4 @@
-package Objects;
+	package Objects;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -71,7 +71,7 @@ public class Sprite extends Rectangle {
     	positionX = positionX-amount;
     	setTranslateX(getTranslateX()-amount);
     	
-    	if (positionX < 0) {
+    	if (positionX < 0 &&!this.type.equals("enemybullet")) {
 			positionX = positionX + amount;
 			setTranslateX(getTranslateX()+amount);
 		}
@@ -80,10 +80,7 @@ public class Sprite extends Rectangle {
     public void moveRight(int amount) {
     	positionX = positionX+amount;
     	setTranslateX(getTranslateX()+amount);
-    	if (this.type == "playerbullet") {
-    		return;
-    	}
-    	else if (positionX > widthS-425) {
+    	if (positionX > widthS-425 && !this.type.equals("playerbullet")) {
 			positionX = positionX - amount;
 			setTranslateX(getTranslateX()-amount);
 		}
