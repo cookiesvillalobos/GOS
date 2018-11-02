@@ -49,6 +49,7 @@ public class Run extends Application{
 	int enemys = 0;
 	
 	int Points = 0;
+	int Lifes = 3;
 	
 	LinkList<Sprite> enemyList = new LinkList<>();
 	LinkList<Sprite> bulletPList = new LinkList<>();
@@ -71,14 +72,19 @@ public class Run extends Application{
 			@Override
 			public void handle(long now) {
 				gc.drawImage(back, 0, 0);
-				Player.render(gc);
+				if (!Player.getDead()) {
+					Player.render(gc);
+				}
 				gc.fillText("Points " + Points, 100, 36);
 				gc.strokeText("Points " + Points, 100, 36);
+				
+
+				gc.fillText("Lifes " + Lifes, 300, 36);
+				gc.strokeText("Lifes " + Lifes, 300, 36);
 				
 				for (int i= 0; i<enemys; i++) {
 					if (!enemyList.see(i).getDead() && enemyList.see(i).getPositionX() != 0) {
 						enemyList.see(i).render(gc);
-						//System.out.println(enemyList.see(i).getDragon().getVelocidadRecarga());
 						if (t>100) {
 							t = 0;
 						}
@@ -92,6 +98,9 @@ public class Run extends Application{
 					else {
 						enemyList.see(i).setPosition(500, 800);
 						root.getChildren().remove(enemyList.see(i));
+						if (Lifes != 0) {
+							Lifes--;
+						}
 					}
 				}
 				for (int a= 0; a<indicatorE; a++) {
@@ -152,6 +161,12 @@ public class Run extends Application{
 			}
 			else if (s.getType().equals("enemybullet")) {
 				s.moveLeft(5);
+				if (s.intersects(Player)) {
+					Player.setDead(true);
+					s.setDead(true);
+					root.getChildren().remove(Player);
+					Lifes = 0;
+				}
 				break;
 			}
 			else if (s.getType().equals("playerbullet")) {
@@ -206,7 +221,9 @@ public class Run extends Application{
 				Player.moveUp(5);
 				break;
 			case SPACE:
-				shoot(Player);
+				if (Lifes != 0) {
+					shoot(Player);
+				}
 				break;
 		}
 			});
