@@ -39,7 +39,7 @@ public class Enemy{
 	}
 	
 	public void Moveto (double x, double y, double cx, double cy ) {
-		System.out.println("cx " + cx + " cy " + cy + " x " + x + " y " + y);
+		//System.out.println("cx " + cx + " cy " + cy + " x " + x + " y " + y);
 		if (x-cx >= 0 && x+cx <=screenWidth && y-cy >= 0 && y+cy <=screenHeight) {
 			
 			this.xPosition = x-cx;

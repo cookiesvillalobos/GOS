@@ -3,6 +3,8 @@ package Interface;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.slf4j.LoggerFactory;
+
 import DataStructure.LinkList;
 import Objects.Sprite;
 import Utils.Rearranger;
@@ -14,18 +16,18 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 //Logback imports
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import Utils.Logger;
 
 public class Run extends Application{
 	
 	//Logback variables
-	private final Logger log = LoggerFactory.getLogger(Run.class);
+	//private final org.slf4j.Logger log = LoggerFactory.getLogger(Run.class);
 	
 	private Pane root = new Pane();
 	
@@ -76,7 +78,7 @@ public class Run extends Application{
 				for (int i= 0; i<enemys; i++) {
 					if (!enemyList.see(i).getDead() && enemyList.see(i).getPositionX() != 0) {
 						enemyList.see(i).render(gc);
-						System.out.println(enemyList.see(i).getDragon().getVelocidadRecarga());
+						//System.out.println(enemyList.see(i).getDragon().getVelocidadRecarga());
 						if (t>100) {
 							t = 0;
 						}
@@ -130,11 +132,11 @@ public class Run extends Application{
 			divisor = divisor/2;
 			for(int j = 0; j < Math.pow(2, (double) i); j++){
 				int y_pos = (int) (height*divisor + j*(height*prevDivisor));
-				Sprite Enemy = new Sprite (enemy, 800 + 100*i, y_pos - 24, "enemy", width, height, Color.RED);
+				Sprite Enemy = new Sprite (enemy, 800 + 75*i, y_pos - 24, "enemy", width, height, Color.RED);
 				enemyList.addPrev(Enemy);
 				spriteList.addPrev(Enemy);
 				root.getChildren().add(Enemy);
-				log.debug("New dragon has been pasted onto the screen: {}", Enemy.toString());
+				Logger.newDragon(Enemy.toString());
 				enemys++;
 			}
 		}
