@@ -90,6 +90,19 @@ public class Server {
 	 * arbolALV por edades
 	 */
 	
+	public List<Dragon> treeToList(AVLTree tree){
+		List<Dragon> list = new List<Dragon>();
+		while (tree.root != null) {
+			list.addLast(tree.root.data);
+			tree.delete(tree.root.data);
+		}	
+		return list;
+	}
+	
+	
+	
+	
+	
 	//selectionSort Por edad  ----------------------------------------------
 	public List<Dragon> selectionSort(List<Dragon> list){
 		int ranNum = (int) (Math.random() * 100) + 1;

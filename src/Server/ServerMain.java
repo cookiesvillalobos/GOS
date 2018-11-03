@@ -68,8 +68,9 @@ public class ServerMain {
 		AVLTree G = S.arbolALV(d);
 		System.out.println(G.root.data.nombre);
 
-		
-		
+		System.out.println("--------- PRUEBA Arboles AVL a Lista --------");
+		List<Dragon> R = S.treeToList(G);
+		System.out.println(R.length());
 	}
 
 }
