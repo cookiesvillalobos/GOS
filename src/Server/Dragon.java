@@ -1,5 +1,7 @@
 package Server;
 
+import com.google.gson.annotations.*;
+
 public class Dragon {
 	// Atributes
 	/*
@@ -12,14 +14,14 @@ public class Dragon {
 	 * 
 	 */
 	
-	String nombre;
-	int edad;
-	int velocidadRecarga;
-	int resistencia;
-	int clase;
+	@Expose String nombre;
+	@Expose int edad;
+	@Expose int velocidadRecarga;
+	@Expose int resistencia;
+	@Expose int clase;
 	Dragon padre;
-	Dragon hijo1;
-	Dragon hijo2;
+	@Expose Dragon hijo1;
+	@Expose Dragon hijo2;
 	
 	
 	int pos;

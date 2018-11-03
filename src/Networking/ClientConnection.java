@@ -30,7 +30,6 @@ public class ClientConnection {
 		while((readChars = reader.read(buffer))>0) {
 			builder.append(new String(buffer, 0, readChars));
 		}
-		
 		return builder.toString();
 	}
 	

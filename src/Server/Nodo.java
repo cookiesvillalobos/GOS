@@ -1,4 +1,7 @@
 package Server;
+
+import com.google.gson.annotations.Expose;
+
 /*
  * Clase necesaria para hacer las listas enlazadas
  */
@@ -8,8 +11,8 @@ public class Nodo<T> {
 	 * @param next: es a donde esta apuntado el nodo, si no hay 
 	 * nadie es nulo
 	 */
-	T data;
-	Nodo<T> next;
+	@Expose T data;
+	@Expose Nodo<T> next;
 	
 	/*
 	 * Constructor

@@ -1,5 +1,7 @@
 package Server;
 
+import com.google.gson.annotations.Expose;
+
 /*
  * Listas anidades de tipo Genericas
  * Funciones: getData, addLast, deleteData
@@ -11,7 +13,11 @@ public class List<T> {
 	/*
 	 * @param first: indica el primer elemento de la lista
 	 */
-	Nodo<T> first = null;
+	@Expose Nodo<T> first = null;
+	
+	@Expose private int sortValue = 0;
+	
+	
 	
 	/*
 	 * Añade un elemento a la ultima posicion de la lista
@@ -110,6 +116,14 @@ public class List<T> {
 			return;	
 		}
 		
+	}
+
+	public int getSortValue() {
+		return sortValue;
+	}
+
+	public void setSortValue(int sortValue) {
+		this.sortValue = sortValue;
 	}
 		
 }
