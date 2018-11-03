@@ -1,11 +1,17 @@
 package Server;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /*
  * Clase que maneja otras, crea dragones y los acomoda
  * ademas de seriaizar a Xml
  */
 public class Server {
+	
 
+	final Logger logger = LoggerFactory.getLogger(ServerMain.class);
+	
 	/*
 	 * Funcion que crea una lista de dragonos,el tamaño de esta
 	 * lista varia dependiendo de la wave. la ronda 1 empueza con 100
@@ -45,6 +51,8 @@ public class Server {
 			pos2++;
 		}
 		list = asignarPadres(list);
+		
+		logger.info("Se Creó la lista de Dragones");
 		return list;
 	}
 	
@@ -95,7 +103,8 @@ public class Server {
 		while (tree.root != null) {
 			list.addLast(tree.root.data);
 			tree.delete(tree.root.data);
-		}	
+		}
+		logger.info("Cambio de Arbol AVL a Liata de Dragones");
 		return list;
 	}
 	
@@ -106,10 +115,15 @@ public class Server {
 	//selectionSort Por edad  ----------------------------------------------
 	public List<Dragon> selectionSort(List<Dragon> list){
 		int ranNum = (int) (Math.random() * 100) + 1;
+		int prueba = list.length();
 		if (ranNum < 50) {
 			list = selectionSortM_m(list);
 		}else {
 			list = selectionSortm_M(list);
+		}
+		logger.info("Se aplicó selectionSort a la lista");
+		if(prueba != list.length()) {
+			logger.error("Las listas tiene un tamaño diferente");
 		}
 		return list;
 	}	
@@ -147,11 +161,16 @@ public class Server {
 	
 	//insertionSort por velocidad ----------------------------------------------
 	public List<Dragon> insertionSort(List<Dragon> list){
+		int prueba = list.length();
 		int ranNum = (int) (Math.random() * 100) + 1;
 		if (ranNum < 50) {
 			list = insertionSortM_m(list);
 		}else {
 			list = insertionSortm_M(list);
+		}
+		logger.info("Se aplicó insertionSort a la lista");
+		if(prueba != list.length()) {
+			logger.error("Las listas tiene un tamaño diferente");
 		}
 		return list;
 	}
@@ -185,11 +204,16 @@ public class Server {
 
 	//quickSort por edad ----------------------------------------------
 	public List<Dragon> quickSort(List<Dragon> list) {
+		int prueba = list.length();
 		int ranNum = (int) (Math.random() * 100) + 1;
 		if (ranNum < 50) {
 			list = quickSortM_m(list);
 		}else {
 			list = quickSortm_M(list);
+		}
+		logger.info("Se aplicó quickSort a la lista");
+		if(prueba != list.length()) {
+			logger.error("Las listas tiene un tamaño diferente");
 		}
 		return list;
 	}
@@ -259,6 +283,7 @@ public class Server {
 	public ArbolBinario arbolBinario(List<Dragon> list) {
 		ListToTree p = new ListToTree();
 		p.reforma(list);
+		logger.info("Se pasó de Lista dregones a Arbol Binario");
 		return p.b;
 	}
 	
@@ -272,6 +297,7 @@ public class Server {
 			temp = temp.next;
 		}
 		a.insert(temp.data);
+		logger.info("Se pasó de Lista dregones a Arbol AVL");
 		return a;
 	}
 	

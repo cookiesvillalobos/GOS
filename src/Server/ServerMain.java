@@ -1,18 +1,10 @@
 package Server;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class ServerMain {
 
 	public static void main(String[] args) {
 		
-		final Logger logger = LoggerFactory.getLogger(ServerMain.class);
-		
 		RandomAgeGenerator ages = new RandomAgeGenerator();
-		logger.info("Se inica la lista de los Dragones");
-		logger.error("Prueba 1");
-		logger.debug("PRUEBA FADA ");
 		
 		Dragon dragon = new Dragon();
 		dragon.setEdad(ages.getRandomAge());
