@@ -13,8 +13,10 @@ import com.panamahitek.PanamaHitek_Arduino;
 
 import DataStructure.LinkList;
 import Networking.ClientConnection;
+import Networking.MockClientConnection;
 import Objects.Sprite;
 import Server.Dragon;
+import Server.List;
 import Utils.Rearranger;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -158,10 +160,10 @@ public class Run extends Application{
 							t = 0;
 						}
 						if (enemyList.see(i).getDragon().getVelocidadRecarga() == t) {
-							shoot(enemyList.see(i));
+							//shoot(enemyList.see(i));
 							
 						}
-						enemyList.see(i).moveLeft(1);
+						//enemyList.see(i).moveLeft(1);
 						t++;
 					}
 					else {
@@ -197,7 +199,11 @@ public class Run extends Application{
 				if (Points == enemys) {
 					System.out.println("YA");
 					try {
-						ClientConnection.getServerUpdate(5);
+						List<Dragon> list = MockClientConnection.getServerUpdate(5);
+						for (int i = 0; i<5; i++) {
+							Dragon dragon =list.getData(i);
+							dragonList.addPrev(dragon);
+						}
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
