@@ -1,20 +1,10 @@
 package Server;
 
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-
 /*
  * Clase que maneja otras, crea dragones y los acomoda
  * ademas de seriaizar a Xml
  */
 public class Server {
-	
-	private static final Logger logger = LoggerFactory.getLogger(Server.class);
-	
-	
-	
 
 	/*
 	 * Funcion que crea una lista de dragonos,el tamaño de esta
@@ -23,7 +13,6 @@ public class Server {
 	 * @param wave: ronda en la que se encuentra el juego
 	 */
 	public List<Dragon> getListaDragones(int wave){
-		logger.info("Se inica la lista de los Dragones");
 		RandomAgeGenerator rag = new RandomAgeGenerator();
 		RandomNameGenerator rng = new RandomNameGenerator();
 		List<Dragon> list = new List<Dragon>();
@@ -47,7 +36,7 @@ public class Server {
 		pos2++;
 		
 		//----Crear resto de dragones----
-		for (int i = 0; i <= (num-1); i++) {
+		for (int i = 1; i <= (num-1); i++) {
 			drag = new Dragon();
 			drag.setEdad(rag.getRandomAge());
 			drag.setNombre(rng.getRandomName());
@@ -256,7 +245,7 @@ public class Server {
 	//arbolBinario por familias ----------------------------------------------
 	public ArbolBinario arbolBinario(List<Dragon> list) {
 		ListToTree p = new ListToTree();
-		p.listToTree2(list);
+		p.reforma(list);
 		return p.b;
 	}
 	

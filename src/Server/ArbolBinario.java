@@ -3,46 +3,39 @@ package Server;
 public class ArbolBinario {
 	
 	NodoAB raiz;
-
-
-
-	public ArbolBinario() {
-		
+	public ArbolBinario() {	
 	}
-
-
-	public void addNodo(Dragon drag) {
-		if (drag == null) {
+	
+	public void addNodoReforma(Dragon data) {
+		if (data == null) {
 			return;
 		}else {
-			addNodo(drag, raiz);
+			addNodoReforma(data, raiz);
 		}	
 	}
-
-
-	private void addNodo(Dragon drag, NodoAB raiz2) {
-		if(raiz2 == null) {
-			return;
-		}
-		if (raiz2.dato.edad == drag.padre.edad) {
-			NodoAB nodo = new NodoAB(drag,raiz);
-			if (raiz2.getHojaDerecha() == null) {
-				raiz2.setHojaDerecha(nodo);
-			}else {
-				raiz2.setHojaIzquierda(nodo);
-			}
-		}else {
-			addNodo(drag,raiz2.hojaDerecha);
-			addNodo(drag,raiz2.hojaIzquierda);
-		}
-		
-	}
+	private void addNodoReforma(Dragon data, NodoAB raiz2) {
+		if ( raiz2 == null ) {
+            raiz2 = new NodoAB(data,null);
+        }else {
+            if ( data.velocidadRecarga <= raiz2.dato.velocidadRecarga ) {    
+                if (raiz2.getHojaIzquierda() == null) {
+                    raiz2.setHojaIzquierda(new NodoAB(data,raiz2));
+                } else {
+                	addNodoReforma(data,raiz2.getHojaIzquierda());
+                }
+            }else {
+                if (raiz2.getHojaDerecha() == null) {
+                    raiz2.setHojaDerecha(new NodoAB(data,raiz2));
+                }else {
+                	addNodoReforma(data,raiz2.getHojaDerecha() );
+                }
+            }
+        }
+    }
 	
 	public NodoAB getRaiz() {
 		return raiz;
 	}
-
-
 	public void setRaiz(NodoAB raiz) {
 		this.raiz = raiz;
 	}
