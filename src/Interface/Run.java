@@ -2,8 +2,13 @@ package Interface;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.slf4j.LoggerFactory;
+
+import com.panamahitek.ArduinoException;
+import com.panamahitek.PanamaHitek_Arduino;
 
 import DataStructure.LinkList;
 import Objects.Sprite;
@@ -24,9 +29,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
+import jssc.SerialPortEvent;
+import jssc.SerialPortEventListener;
+import jssc.SerialPortException;
 //Logback imports
-import Utils.Logger;
 
 public class Run extends Application{
 	
@@ -38,6 +44,8 @@ public class Run extends Application{
 	private double width = 1500;
 	private double height = 600;
 	private double t = 0;
+	
+	String ss;
 	
 	String name;
 	String fathername;
@@ -72,6 +80,36 @@ public class Run extends Application{
 		
 	private Sprite Player = new Sprite(player, 300.0, 100.0, "player", width, height, Color.BLUE);
 	
+    PanamaHitek_Arduino ion=new PanamaHitek_Arduino();
+    SerialPortEventListener lis= new SerialPortEventListener() {
+       @Override
+       public void serialEvent(SerialPortEvent spe) {
+            
+         
+           try {
+                   if(ion.isMessageAvailable()){
+                      ss=ion.printMessage();
+                      System.out.println(ss);
+                   }
+               } catch (SerialPortException ex) {
+                   Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
+               } catch (ArduinoException ex) {
+                   Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
+               } }
+   };
+	
+	
+	public Run() {
+		 try {
+	            ion.arduinoRX("COM6",9600,lis);
+	        } catch (ArduinoException ex) {
+	            Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
+	        } catch (SerialPortException ex) {
+	            Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
+	        }
+	           }
+	
+	
 	private Parent createContent() {
 		root.setPrefSize(width, height);
 		
@@ -84,6 +122,21 @@ public class Run extends Application{
 			@Override
 			public void handle(long now) {
 				gc.drawImage(back, 0, 0);
+				
+			/*
+				if (ss.equals("LEFTLE")) {
+					Player.moveLeft(5);
+				}
+				if (ss.equals("RIGHTR")) {
+					Player.moveLeft(5);
+				}
+				if (ss.equals("DOWNDO")) {
+					Player.moveLeft(5);
+				}
+				if (ss.equals("UPUP")) {
+					Player.moveLeft(5);
+				}
+				*/
 				if (!Player.getDead()) {
 					Player.render(gc);
 				}
@@ -157,7 +210,7 @@ public class Run extends Application{
 				enemyList.addPrev(Enemy);
 				spriteList.addPrev(Enemy);
 				root.getChildren().add(Enemy);
-				Logger.newDragon(Enemy.toString());
+				//Logger.newDragon(Enemy.toString());
 				enemys++;
 			}
 		}
@@ -275,6 +328,9 @@ public class Run extends Application{
 		
 		Scene scene = new Scene(createContent());
 		
+
+		
+
 		scene.setOnKeyPressed(e -> {
 			switch (e.getCode()) {
 			case LEFT:
