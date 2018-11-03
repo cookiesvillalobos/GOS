@@ -48,6 +48,10 @@ public class Run extends Application{
 	
 	private double width = 1500;
 	private double height = 600;
+	
+	private double nominalMarginX = 10;
+	private double nominalMarginY = 40;
+	
 	private double t = 0;
 	
 	String ss;
@@ -220,9 +224,21 @@ public class Run extends Application{
 		return root;
 	}
 	
+	private void enemyToSpriteList() {
+		for(int i = 0; i < enemyList.length(); i++) {
+			Sprite enemyTemp = new Sprite(enemy, 0, 0, "enemy", width, height, Color.RED);
+			
+			enemyList.addPrev(enemyTemp);
+			enemys++;			
+		}
+	}
 	
 	private void nextlevel(int x) {
 		spriteList.addPrev(Player);
+		treeOrdering(x);
+	}
+	
+	private void treeOrdering(int x) {
 		double divisor = 1.00;
 		double prevDivisor = divisor;
 		for (int i = 0; i < x; i++) {
@@ -239,6 +255,147 @@ public class Run extends Application{
 			}
 		}
 	}
+	
+private void sortOrdering() {
+		
+		for(int i = 0; i < 6; i++) {
+			double[] distPix = percentToPix(95, i * 20 - 3, true, true);
+		
+			Sprite Enemy = new Sprite (enemy, distPix[0], distPix[1], "enemy", width, height, Color.RED);
+			enemyList.addPrev(Enemy);
+			spriteList.addPrev(Enemy);
+			root.getChildren().add(Enemy);
+			//Logger.newDragon(Enemy.toString());
+			enemys++;
+		}
+//		double divisor = 1.00;
+//		double prevDivisor = divisor;
+//		for (int i = 0; i < 4; i++) {
+//			prevDivisor = divisor;
+//			divisor = divisor / 2;
+//			for(int j = 0; j < 6; j++){
+//				int y_pos = (int) (height*divisor + j*(height*prevDivisor));
+//				Sprite Enemy = new Sprite (enemy, 800 + 75*i, y_pos - 24, "enemy", width, height, Color.RED);
+//				enemySpriteList.addPrev(Enemy);
+//				spriteList.addPrev(Enemy);
+//				root.getChildren().add(Enemy);
+//				Logger.newDragon(Enemy.toString());
+//				enemys++;
+//			}
+//		}
+	}
+	
+	private void sortedOrdering() {
+		int enemiesLeft = enemys;
+		int columns = enemiesLeft / 6; //a lo sumo 6 sprites enemigas por columna
+		double distFromRightPerc = 100;
+		double distFromAbovePerc = 0;
+		
+		for (int col = 0; col < columns; col++) {
+			int rows;
+			if (col < columns - 1) {
+				rows = 6;
+			}else {
+				rows = enemiesLeft;
+			}
+			
+			for(int row = (6 - rows); row < rows; row ++) {
+				double[] distPix = percentToPix(distFromRightPerc, distFromAbovePerc, true, true);
+				distFromAbovePerc += 100 / 6; 
+				//Sprite enemyTemp = enemySpriteList.see(--enemiesLeft);
+				Sprite enemyTemp = new Sprite (enemy, distPix[0], distPix[1], "enemy", width, height, Color.RED);
+				//enemyTemp.setPosition(distPix[0], distPix[1]);
+				enemyList.addPrev(enemyTemp);
+				spriteList.addPrev(enemyTemp);
+				root.getChildren().add(enemyTemp);
+				//Logger.newDragon(enemyTemp.toString());
+				enemys++;
+			}
+			
+			distFromRightPerc -= 30;
+		}
+		
+		
+		
+		
+		
+		
+		
+//		double divisor = 1.00;
+//		double prevDivisor = divisor;
+//		for (int i = 0; i < 4; i++) {
+//			prevDivisor = divisor;
+//			divisor = divisor/2;
+//			for(int j = 0; j < Math.pow(2, (double) i); j++){
+//				int y_pos = (int) (height*divisor + j*(height*prevDivisor));
+//				Sprite Enemy = new Sprite (enemy, 800 + 75*i, y_pos - 24, "enemy", width, height, Color.RED);
+//				enemySpriteList.addPrev(Enemy);
+//				spriteList.addPrev(Enemy);
+//				root.getChildren().add(Enemy);
+//				Logger.newDragon(Enemy.toString());
+//				enemys++;
+//			}
+//		}
+		
+		
+		
+	}
+	
+	private double[] pixToPercent() {
+		return null;
+	}
+	
+	private double[] percentToPix(double percPosX, double percPosY, boolean xHasMargin, boolean yHasMargin) {
+		double pixPosX;
+		double pixPosY;
+		
+		double marginX = 0;
+		double marginY = 0;
+				
+		double allowedWidthPix;
+		double allowedHeightPix;
+		
+		if(!xHasMargin) {
+			allowedWidthPix = width;
+		}else {
+			marginX = nominalMarginX;
+			allowedWidthPix = width - 2 * marginX;
+
+		}
+		
+		if(!yHasMargin) {
+			allowedHeightPix = height;
+		}else {
+			marginY = nominalMarginY;
+			allowedHeightPix = height - 2 * marginY;
+
+		}
+		
+		pixPosX = percPosX / 100 * allowedWidthPix + marginX;
+		pixPosY = percPosY / 100 * allowedHeightPix + marginY;
+		
+		return new double[] {pixPosX, pixPosY};		
+	}
+	
+	
+//	private void nextlevel(int x) {
+//		spriteList.addPrev(Player);
+//		double divisor = 1.00;
+//		double prevDivisor = divisor;
+//		for (int i = 0; i < x; i++) {
+//			prevDivisor = divisor;
+//			divisor = divisor/2;
+//			for(int j = 0; j < Math.pow(2, (double) i); j++){
+//				int y_pos = (int) (height*divisor + j*(height*prevDivisor));
+//				Sprite Enemy = new Sprite (enemy, 800 + 75*i, y_pos - 24, "enemy", width, height, Color.RED);
+//				enemyList.addPrev(Enemy);
+//				spriteList.addPrev(Enemy);
+//				root.getChildren().add(Enemy);
+//				//Logger.newDragon(Enemy.toString());
+//				enemys++;
+//			}
+//		}
+//	}
 	
 
 	private void update2() {
