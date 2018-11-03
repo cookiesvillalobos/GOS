@@ -24,6 +24,7 @@ import org.xml.sax.InputSource;
 //Gson imports
 import com.google.gson.*;
 
+import Server.Dragon;
 //Local imports
 import Server.List;
 
@@ -73,12 +74,12 @@ public class ListSerializer {
 	
 	//Methods that receives a Object and returns it in a jsonString
 	public static String toJsonString(Object obj) {
-		return new Gson().toJson(obj);
+		return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(obj);
 	}
 	
 	//Method that receives a JSONString and return an object of the desire class
-	public static Object fromJsonString(String json, Class T) {
-		return new Gson().fromJson(json, T);
+	public static List<Dragon> fromJsonString(String json) {
+		return new Gson().fromJson(json, List.class);
 	}
 	
 }
