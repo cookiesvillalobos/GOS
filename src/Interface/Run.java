@@ -1,5 +1,6 @@
 package Interface;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
@@ -11,7 +12,9 @@ import com.panamahitek.ArduinoException;
 import com.panamahitek.PanamaHitek_Arduino;
 
 import DataStructure.LinkList;
+import Networking.ClientConnection;
 import Objects.Sprite;
+import Server.Dragon;
 import Utils.Rearranger;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -75,6 +78,7 @@ public class Run extends Application{
 	LinkList<Sprite> bulletPList = new LinkList<>();
 	LinkList<Sprite> bulletEList = new LinkList<>();
 	LinkList<Sprite> spriteList = new LinkList<>();
+	LinkList<Dragon> dragonList = new LinkList<>();
 	
 	
 		
@@ -115,7 +119,7 @@ public class Run extends Application{
 		
 		root.getChildren().add(canvas);
 		root.getChildren().add(Player);
-		nextlevel();
+		nextlevel(2);
 		
 		AnimationTimer timer = new AnimationTimer() {
 
@@ -150,7 +154,7 @@ public class Run extends Application{
 				for (int i= 0; i<enemys; i++) {
 					if (!enemyList.see(i).getDead() && enemyList.see(i).getPositionX() != 0) {
 						enemyList.see(i).render(gc);
-						if (t>100) {
+						if (t>1000) {
 							t = 0;
 						}
 						if (enemyList.see(i).getDragon().getVelocidadRecarga() == t) {
@@ -163,9 +167,11 @@ public class Run extends Application{
 					else {
 						enemyList.see(i).setPosition(500, 800);
 						root.getChildren().remove(enemyList.see(i));
-						if (Lifes != 0) {
+						
+						if (Lifes != 0 && enemyList.see(i).getPositionX() == 0) {
 							Lifes--;
 						}
+						
 					}
 				}
 				for (int a= 0; a<indicatorE; a++) {
@@ -187,6 +193,18 @@ public class Run extends Application{
 					
 				}
 				update2();
+				
+				if (Points == enemys) {
+					System.out.println("YA");
+					try {
+						ClientConnection.getServerUpdate(5);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					Points = 0;
+				}
 			}
 			
 		};
@@ -197,11 +215,11 @@ public class Run extends Application{
 	}
 	
 	
-	private void nextlevel() {
+	private void nextlevel(int x) {
 		spriteList.addPrev(Player);
 		double divisor = 1.00;
 		double prevDivisor = divisor;
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < x; i++) {
 			prevDivisor = divisor;
 			divisor = divisor/2;
 			for(int j = 0; j < Math.pow(2, (double) i); j++){
